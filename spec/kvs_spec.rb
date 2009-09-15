@@ -41,12 +41,18 @@ describe KVS do
       KVS['foo'] = 'bar'
       KVS['foo'].should == 'bar'
       KVS.delete('foo')
-      KVS['foo'].should == nil
+      KVS['foo'].should be_nil
       File.exists?(KVS.file_of('foo')).should be_false
     end
+
+    it 'should return nil' do
+      KVS['foo'] = 'bar'
+      KVS.delete('foo').should be_nil
+      KVS.delete('foo').should be_nil
+    end
   end
-  
-  describe 'use valid key' do
+
+  describe 'should always return nil' do
     it 'should not raise ArgumentError' do
       lambda { KVS['foo'] }.should_not raise_error(ArgumentError)
       lambda { KVS['_'] }.should_not raise_error(ArgumentError)

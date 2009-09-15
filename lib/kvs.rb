@@ -24,7 +24,9 @@ module KVS
     end
 
     def delete(key)
-      File.delete(file_of(key))
+      path = file_of(key)
+      File.delete(path) if File.exists?(path)
+      nil
     end
 
     def file_of(key)
