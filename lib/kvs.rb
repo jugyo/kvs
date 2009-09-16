@@ -1,7 +1,7 @@
 require 'digest/sha1'
 
 module KVS
-  VERSION = '0.2.2'
+  VERSION = '0.2.3'
 
   class <<self
     attr_accessor :dir
