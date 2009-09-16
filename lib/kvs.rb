@@ -8,7 +8,7 @@ module KVS
 
     def <<(value)
       key = key_gen(value)
-      self[id] = value
+      self[key] = value
       key
     end
 
