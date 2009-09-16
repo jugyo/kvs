@@ -2,7 +2,7 @@ require 'digest/sha1'
 require 'yaml'
 
 module KVS
-  VERSION = '0.2.3'
+  VERSION = '0.3.0'
 
   class <<self
     attr_accessor :dir
