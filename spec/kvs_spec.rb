@@ -1,5 +1,6 @@
 $:.unshift File.dirname(__FILE__) + '/../lib'
 require 'kvs'
+require 'tmpdir'
 
 describe KVS do
   before do

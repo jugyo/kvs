@@ -1,5 +1,4 @@
 require 'digest/sha1'
-require 'tmpdir'
 
 module KVS
   VERSION = '0.2.0'
