@@ -1,10 +1,13 @@
 $:.unshift File.dirname(__FILE__) + '/../lib'
 require 'kvs'
 require 'tmpdir'
+require 'fileutils'
 
 describe KVS do
   before do
-    @tmpdir = Dir.tmpdir
+    @tmpdir = Dir.tmpdir + '/kvs_test'
+    FileUtils.rm_rf(@tmpdir)
+    FileUtils.mkdir_p(@tmpdir)
     KVS.dir = @tmpdir
   end
 
