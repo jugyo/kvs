@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{kvs}
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["jugyo"]
-  s.date = %q{2009-09-15}
+  s.date = %q{2009-09-16}
   s.description = %q{KVS is a simple key value store.}
   s.email = %q{jugyo.org@gmail.com}
   s.files = ["Rakefile", "README.markdown", "ChangeLog", "lib/kvs.rb", "spec/kvs_spec.rb"]
