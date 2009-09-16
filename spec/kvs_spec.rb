@@ -16,14 +16,14 @@ describe KVS do
   end
 
   it 'should store data' do
-    KVS['foo'] = 'bar'
-    KVS['foo'].should == 'bar'
+    KVS['foo'] = {:a => 'b', :c => 'd'}
+    KVS['foo'].should == {:a => 'b', :c => 'd'}
     File.exists?(KVS.file_of('foo')).should be_true
   end
 
   it 'should store data with "<<"' do
-    key = KVS << 'test'
-    KVS[key].should == 'test'
+    key = KVS << {:a => 'b', :c => 'd'}
+    KVS[key].should == {:a => 'b', :c => 'd'}
     File.exists?(KVS.file_of(key)).should be_true
   end
 
@@ -78,7 +78,7 @@ describe KVS do
     end
 
     it 'should raise ArgumentError' do
-      lambda { KVS['foo'] = 'bar' }.should raise_error(RuntimeError)
+      lambda { KVS['foo'] = {:a => 'b'} }.should raise_error(RuntimeError)
       lambda { KVS['foo'] }.should raise_error(RuntimeError)
     end
   end

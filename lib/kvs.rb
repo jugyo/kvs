@@ -1,4 +1,5 @@
 require 'digest/sha1'
+require 'yaml'
 
 module KVS
   VERSION = '0.2.3'
@@ -15,11 +16,11 @@ module KVS
     def [](key)
       path = file_of(key)
       return nil unless File.exists?(path)
-      File.read(path)
+      YAML.load(File.read(path))
     end
 
     def []=(key, value)
-      File.open(file_of(key), 'wb') { |f| f << value.to_s }
+      File.open(file_of(key), 'wb') { |f| f << value.to_yaml }
     end
 
     def delete(key)
