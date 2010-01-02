@@ -11,11 +11,11 @@ describe KVS do
     KVS.dir = @tmpdir
   end
 
-  it 'should generate file path' do
+  it 'generates file path' do
     KVS.file_of('foo').should == @tmpdir + '/foo'
   end
 
-  it 'should store data' do
+  it 'stores data' do
     KVS['foo'] = {:a => 'b', :c => 'd'}
     KVS['foo'].should == {:a => 'b', :c => 'd'}
     File.exists?(KVS.file_of('foo')).should be_true
@@ -65,7 +65,7 @@ describe KVS do
   end
 
   describe 'use invalid key' do
-    it 'should raise ArgumentError' do
+    it 'raises ArgumentError' do
       lambda { KVS['.'] }.should raise_error(ArgumentError)
       lambda { KVS['../'] }.should raise_error(ArgumentError)
       lambda { KVS['/'] }.should raise_error(ArgumentError)
@@ -77,7 +77,7 @@ describe KVS do
       KVS.dir = nil
     end
 
-    it 'should raise ArgumentError' do
+    it 'raises ArgumentError' do
       lambda { KVS['foo'] = {:a => 'b'} }.should raise_error(RuntimeError)
       lambda { KVS['foo'] }.should raise_error(RuntimeError)
     end
