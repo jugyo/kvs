@@ -1,56 +1,43 @@
-$:.unshift File.dirname(__FILE__) + '/lib'
 require 'rubygems'
-require 'kvs'
-require 'spec/rake/spectask'
-require 'rake/clean'
-require 'rake/gempackagetask'
-require 'rake/rdoctask'
+require 'rake'
 
-name = 'kvs'
-version = KVS::VERSION
-
-spec = Gem::Specification.new do |s|
-  s.name = name
-  s.version = version
-  s.summary = "simple key value store."
-  s.description = "KVS is a simple key value store."
-  s.files = %w(Rakefile README.markdown ChangeLog) + Dir.glob("{lib,spec}/**/*.rb")
-  s.authors = %w(jugyo)
-  s.email = 'jugyo.org@gmail.com'
-  s.homepage = 'http://github.com/jugyo/kvs'
-  s.rubyforge_project = 'kvs'
-  s.has_rdoc = false
-end
-
-Rake::GemPackageTask.new(spec) do |p|
-  p.need_tar = true
-end
-
-task :gemspec do
-  filename = "#{name}.gemspec"
-  open(filename, 'w') do |f|
-    f.write spec.to_ruby
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "kvs"
+    gem.summary = %Q{Key Value Store.}
+    gem.description = %Q{KVS is a simple key value store.}
+    gem.email = "jugyo.org@gmail.com"
+    gem.homepage = "http://github.com/jugyo/kvs"
+    gem.authors = ["jugyo"]
+    gem.add_development_dependency "rspec", ">= 1.2.9"
   end
-  puts <<-EOS
-  Successfully generated gemspec
-  Name: #{name}
-  Version: #{version}
-  File: #{filename}
-  EOS
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
 
-task :install => [ :package ] do
-  sh %{sudo gem install pkg/#{name}-#{version}.gem}
+require 'spec/rake/spectask'
+Spec::Rake::SpecTask.new(:spec) do |spec|
+  spec.libs << 'lib' << 'spec'
+  spec.spec_files = FileList['spec/**/*_spec.rb']
 end
 
-task :uninstall => [ :clean ] do
-  sh %{sudo gem uninstall #{name}}
+Spec::Rake::SpecTask.new(:rcov) do |spec|
+  spec.libs << 'lib' << 'spec'
+  spec.pattern = 'spec/**/*_spec.rb'
+  spec.rcov = true
 end
 
-desc 'run all specs'
-Spec::Rake::SpecTask.new do |t|
-  t.spec_files = FileList['spec/**/*_spec.rb']
-  t.spec_opts = ['-c']
-end
+task :spec => :check_dependencies
 
-CLEAN.include ['pkg']
+task :default => :spec
+
+require 'rake/rdoctask'
+Rake::RDocTask.new do |rdoc|
+  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title = "kvs #{version}"
+  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
