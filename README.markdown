@@ -16,6 +16,8 @@ Install
 Usage
 --------
 
+use as singleton:
+
     KVS.dir = '/tmp/kvs'
 
     KVS['foo'] = 'bar'
@@ -25,6 +27,12 @@ Usage
     puts KVS[key] #=> jugyo
 
     KVS.delete('foo')
+
+use as instance:
+
+    KVS_A = KVS.new('/tmp/kvs_a')
+    KVS_A['foo'] = 'bar'
+    puts KVS_A['foo'] #=> bar
 
 License
 --------
