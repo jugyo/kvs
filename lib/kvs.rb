@@ -34,6 +34,10 @@ class KVS
     YAML.load(File.read(path))
   end
 
+  def key?(key)
+    !!self[key]
+  end
+
   def []=(key, value)
     File.open(file_of(key), 'wb') { |f| f << value.to_yaml }
   end
@@ -53,6 +57,10 @@ class KVS
 
   def key_gen(value)
     Digest::SHA1.hexdigest(value.to_s)
+  end
+
+  def keys
+    Dir.glob(dir + '/*').map {|f| File.basename(f) }
   end
 
   def inspect

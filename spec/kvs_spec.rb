@@ -19,6 +19,9 @@ describe KVS do
     KVS['foo'] = {:a => 'b', :c => 'd'}
     KVS['foo'].should == {:a => 'b', :c => 'd'}
     File.exists?(KVS.file_of('foo')).should be_true
+    KVS['bar'] = 'bar'
+    KVS.keys.include?('foo').should be_true
+    KVS.keys.include?('bar').should be_true
   end
 
   it 'should store data with "<<"' do
