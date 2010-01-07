@@ -7,7 +7,6 @@ describe KVS do
   before do
     @tmpdir = Dir.tmpdir + '/kvs_test'
     FileUtils.rm_rf(@tmpdir)
-    FileUtils.mkdir_p(@tmpdir)
     KVS.dir = @tmpdir
   end
 
@@ -90,7 +89,6 @@ describe KVS do
     before do
       @tmpdir_for_foo = Dir.tmpdir + '/kvs_test_foo'
       FileUtils.rm_rf(@tmpdir_for_foo)
-      FileUtils.mkdir_p(@tmpdir_for_foo)
       @kvs = KVS.new(@tmpdir_for_foo)
     end
 
@@ -109,7 +107,6 @@ describe KVS do
     before do
       @tmpdir = Dir.tmpdir + '/kvs_test'
       FileUtils.rm_rf(@tmpdir)
-      FileUtils.mkdir_p(@tmpdir)
       KVS.dir = @tmpdir
     end
 

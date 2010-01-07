@@ -1,5 +1,6 @@
 require 'digest/sha1'
 require 'yaml'
+require 'fileutils'
 
 class KVS
   @instance = self.new
@@ -19,7 +20,7 @@ class KVS
   attr_accessor :dir
 
   def initialize(dir = nil)
-    @dir = dir
+    self.dir = dir
   end
 
   def <<(value)
@@ -39,7 +40,9 @@ class KVS
   end
 
   def []=(key, value)
-    File.open(file_of(key), 'wb') { |f| f << value.to_yaml }
+    path = file_of(key)
+    FileUtils.mkdir_p(dir) unless File.exists?(dir)
+    File.open(path, 'wb') { |f| f << value.to_yaml }
   end
 
   def delete(key)
