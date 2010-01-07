@@ -82,20 +82,23 @@ describe KVS do
       lambda { KVS['foo'] }.should raise_error(RuntimeError)
     end
   end
-end
 
-describe 'KVS#inspect' do
-  before do
-    @tmpdir = Dir.tmpdir + '/kvs_test'
-    FileUtils.rm_rf(@tmpdir)
-    FileUtils.mkdir_p(@tmpdir)
-    KVS.dir = @tmpdir
-  end
+  describe 'instantiate' do
+    before do
+      @tmpdir_for_foo = Dir.tmpdir + '/kvs_test_foo'
+      FileUtils.rm_rf(@tmpdir_for_foo)
+      FileUtils.mkdir_p(@tmpdir_for_foo)
+      @kvs = KVS.new(@tmpdir_for_foo)
+    end
 
-  it 'shows the pairs of key and value' do
-    KVS.inspect.should == 'KVS()'
+    it 'generates file path' do
+      @kvs.file_of('foo').should == @tmpdir_for_foo + '/foo'
+    end
 
-    KVS['foo'] = 'bar'
-    KVS.inspect.should == 'KVS("foo": "bar")'
+    it 'stores data' do
+      @kvs['bar'] = 'bar'
+      @kvs['bar'].should == 'bar'
+      KVS['bar'].should_not == 'bar'
+    end
   end
 end
