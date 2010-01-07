@@ -12,6 +12,10 @@ class KVS
     end
   end
 
+  def self.inspect
+    @instance.inspect
+  end
+
   attr_accessor :dir
 
   def initialize(dir = nil)
@@ -49,5 +53,12 @@ class KVS
 
   def key_gen(value)
     Digest::SHA1.hexdigest(value.to_s)
+  end
+
+  def inspect
+    pairs = Dir.glob(dir + '/*').map {|f|
+      "#{File.basename(f).inspect}: #{YAML.load_file(f).inspect}"
+    }
+    "KVS(#{pairs.join ', '})"
   end
 end

@@ -101,4 +101,20 @@ describe KVS do
       KVS['bar'].should_not == 'bar'
     end
   end
+
+  describe 'KVS#inspect' do
+    before do
+      @tmpdir = Dir.tmpdir + '/kvs_test'
+      FileUtils.rm_rf(@tmpdir)
+      FileUtils.mkdir_p(@tmpdir)
+      KVS.dir = @tmpdir
+    end
+
+    it 'shows the pairs of key and value' do
+      KVS.inspect.should == 'KVS()'
+
+      KVS['foo'] = 'bar'
+      KVS.inspect.should == 'KVS("foo": "bar")'
+    end
+  end
 end
