@@ -11,7 +11,7 @@ KVS is a simple key value store.
 Install
 --------
 
-    sudo gem install jugyo-kvs --source http://gems.github.com
+    gem install kvs
 
 Usage
 --------
