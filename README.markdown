@@ -1,3 +1,7 @@
+**This project has been moved to [http://github.com/jugyo/ykk](http://github.com/jugyo/ykk).**
+
+- - - -
+
 KVS
 ========
 
